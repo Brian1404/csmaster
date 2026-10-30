@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSMASTER</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#060912;
+    color:white;
+    font-family:Segoe UI,sans-serif;
+}
+
+nav{
+    background:#111827;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+}
+
+.logo{
+    color:#ff2d2d;
+    font-size:40px;
+    font-weight:900;
+}
+
+.links{
+    display:flex;
+    gap:25px;
+}
+
+.links a{
+    color:#a1a1aa;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.links a:hover{
+    color:white;
+}
+
+.account{
+    position:relative;
+    display:flex;
+    gap:10px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:10px 15px;
+    border-radius:10px;
+}
+
+.login-btn{
+    background:#1f2937;
+    color:white;
+}
+
+.register-btn{
+    background:#ff2d2d;
+    color:white;
+}
+
+.hero{
+    text-align:center;
+    margin-top:100px;
+}
+
+.hero h1{
+    font-size:55px;
+}
+
+.hero p{
+    margin-top:15px;
+    color:#9ca3af;
+}
+
+.search{
+    max-width:800px;
+    margin:40px auto;
+    display:flex;
+}
+
+.search input{
+    flex:1;
+    background:#111827;
+    border:none;
+    color:white;
+    padding:18px;
+    outline:none;
+}
+
+.search button{
+    width:70px;
+    background:#1f2937;
+    color:white;
+}
+
+.level-card{
+    max-width:800px;
+    margin:25px auto;
+    background:#111827;
+    padding:20px;
+    border-radius:15px;
+}
+
+.bar{
+    margin-top:15px;
+    height:14px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.fill{
+    width:25%;
+    height:100%;
+    background:linear-gradient(90deg,#8b5cf6,#c084fc);
+}
+
+.cards{
+    max-width:1200px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:#111827;
+    padding:25px;
+    border-radius:15px;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    width:350px;
+    background:#111827;
+    padding:25px;
+    border-radius:15px;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+}
+
+.modal-content input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.modal-content button{
+    width:100%;
+    background:#8b5cf6;
+    color:white;
+}
+
+.profile-menu{
+    display:none;
+    position:fixed;
+    top:75px;
+    right:20px;
+    width:220px;
+    background:#111827;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #2a2a2a;
+}
+
+.profile-menu div{
+    padding:14px;
+    cursor:pointer;
+}
+
+.profile-menu div:hover{
+    background:#1f2937;
+}
+
+.logout{
+    color:#ff6666;
+    border-top:1px solid #333;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+
+<div class="logo">
+CSMASTER
+</div>
+
+<div class="links">
+
+<a onclick="goHome()">Home</a>
+
+<a onclick="openDatabase()">
+Database
+</a>
+
+<a onclick="openFloats()">
+Floats
+</a>
+
+<a onclick="openStore()">
+🎁 XP Store
+</a>
+
+</div>
+
+<div id="accountArea" class="account">
+
+<button
+class="login-btn"
+onclick="openLogin()">
+
+Login
+
+</button>
+
+<button
+class="register-btn"
+onclick="openRegister()">
+
+Register
+
+</button>
+
+</div>
+
+</nav>
+
+<div id="profileMenu"
+class="profile-menu">
+
+<div onclick="openProfile()">
+👤 Profiel
+</div>
+
+<div onclick="openSettings()">
+⚙ Instellingen
+</div>
+
+<div onclick="openAvatar()">
+📷 Avatar
+</div>
+
+<div onclick="openFavorites()">
+❤️ Favorieten
+</div>
+
+<div
+class="logout"
+onclick="logout()">
+
+🚪 Uitloggen
+
+</div>
+
+</div>
+
+<section class="hero">
+
+<h1>
+Vind iedere CS2 Skin
+</h1>
+
+<p>
+Zoek straks door skins,
+floats en StatTrak.
+</p>
+
+<div class="search">
+
+<input
+placeholder="Search skins...">
+
+<button>
+🔍
+</button>
+
+</div>
+
+</section>
+
+<div class="level-card">
+
+<h2>
+⭐ Level 1
+</h2>
+
+<div class="bar">
+<div class="fill"></div>
+</div>
+
+<p style="margin-top:10px;">
+25 / 100 XP
+</p>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>🔫 Weapons</h3>
+<p>Bekijk wapens.</p>
+</div>
+
+<div class="card">
+<h3>📊 Floats</h3>
+<p>Float informatie.</p>
+</div>
+
+<div class="card">
+<h3>⭐ Favorieten</h3>
+<p>Bewaar skins.</p>
+</div>
+
+</div>
+
+<!-- LOGIN -->
+
+<div id="loginModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Login</h2>
+
+<input
+id="loginUsername"
+placeholder="Gebruikersnaam">
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Wachtwoord">
+
+<button onclick="login()">
+Inloggen
+</button>
+
+</div>
+
+</div>
+
+<!-- REGISTER -->
+
+<div id="registerModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Registreren</h2>
+
+<input
+id="regUsername"
+placeholder="Gebruikersnaam">
+
+<input
+id="regEmail"
+placeholder="Email">
+
+<input
+id="regPassword"
+type="password"
+placeholder="Wachtwoord">
+
+<button onclick="registerUser()">
+Account maken
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function openLogin(){
+
+document
+.getElementById("loginModal")
+.style.display = "flex";
+
+}
+
+function openRegister(){
+
+document
+.getElementById("registerModal")
+.style.display = "flex";
+
+}
+
+window.onclick = function(e){
+
+if(e.target.classList.contains("modal")){
+
+e.target.style.display = "none";
+
+}
+
+}
+
+function registerUser(){
+
+const username =
+document.getElementById(
+"regUsername"
+).value.trim();
+
+const email =
+document.getElementById(
+"regEmail"
+).value.trim();
+
+const password =
+document.getElementById(
+"regPassword"
+).value;
+
+if(
+!username ||
+!email ||
+!password
+){
+
+alert(
+"Vul alle velden in."
+);
+
+return;
+
+}
+
+let users =
+JSON.parse(
+localStorage.getItem("users")
+)
+|| {};
+
+if(users[username]){
+
+alert(
+"Gebruikersnaam bestaat al."
+);
+
+return;
+
+}
+
+users[username] = {
+
+email,
+password
+
+};
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+alert(
+"✅ Account aangemaakt!"
+);
+
+document
+.getElementById(
+"registerModal"
+)
+.style.display = "none";
+
+}
+
+function login(){
+
+const username =
+document.getElementById(
+"loginUsername"
+).value.trim();
+
+const password =
+document.getElementById(
+"loginPassword"
+).value;
+
+let users =
+JSON.parse(
+localStorage.getItem("users")
+)
+|| {};
+
+if(!users[username]){
+
+alert(
+"Gebruiker bestaat niet."
+);
+
+return;
+
+}
+
+if(
+users[username].password
+!== password
+){
+
+alert(
+"Verkeerd wachtwoord."
+);
+
+return;
+
+}
+
+localStorage.setItem(
+"loggedInUser",
+username
+);
+
+updateUserUI();
+
+document
+.getElementById(
+"loginModal"
+)
+.style.display = "none";
+
+}
+
+function updateUserUI(){
+
+const username =
+localStorage.getItem(
+"loggedInUser"
+);
+
+if(!username) return;
+
+document.getElementById(
+"accountArea"
+).innerHTML = `
+
+<button
+class="login-btn"
+onclick="toggleProfileMenu()">
+
+👤 ${username} ▼
+
+</button>
+
+`;
+
+}
+
+function toggleProfileMenu(){
+
+const menu =
+document.getElementById(
+"profileMenu"
+);
+
+menu.style.display =
+menu.style.display === "block"
+?
+"none"
+:
+"block";
+
+}
+
+function logout(){
+
+localStorage.removeItem(
+"loggedInUser"
+);
+
+location.reload();
+
+}
+
+function goHome(){
+alert("🏠 Je bent al op Home.");
+}
+
+function openDatabase(){
+alert("🔫 Database komt binnenkort.");
+}
+
+function openFloats(){
+alert("📊 Floats komt binnenkort.");
+}
+
+function openStore(){
+alert("🎁 XP Store\n\nComing Soon 🚀");
+}
+
+function openProfile(){
+alert("👤 Profiel komt binnenkort.");
+}
+
+function openSettings(){
+alert("⚙ Instellingen komt binnenkort.");
+}
+
+function openAvatar(){
+alert("📷 Avatar upload komt binnenkort.");
+}
+
+function openFavorites(){
+alert("❤️ Favorieten komt binnenkort.");
+}
+
+updateUserUI();
+
+</script>
+
+</body>
+</html>
